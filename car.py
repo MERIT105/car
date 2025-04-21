@@ -113,7 +113,7 @@ def bgmi_command(message):
     try:
         args = message.text.split()[1:]
         if len(args) != 3:
-            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅\n\n
+            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ BOT ACTIVE!
 
 Usage format: /bgmi <ip> <port> <duration>")
 
