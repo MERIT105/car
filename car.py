@@ -102,15 +102,16 @@ def bgmi_command(message):
     try:
         args = message.text.split()[1:]
         if len(args) != 3:
-            raise ValueError(" ┊★ȺŁØNɆ☂࿐ꔪ┊™ Bot Active✅!
+            raise ValueError("""┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅
 
-Usage format: /bgmi <ip> <port> <duration>")
+⚙ 𝙋𝙡𝙚𝙖𝙨𝙚 𝙪𝙨𝙚 𝙩𝙝𝙚 𝙛𝙤𝙧𝙢𝙖𝙩 
+/bgmi <𝘁𝗮𝗿𝗴𝗲𝘁_𝗶𝗽> <𝘁𝗮𝗿𝗴𝗲𝘁_𝗽𝗼𝗿𝘁> <𝗱𝘂𝗿𝗮𝘁𝗶𝗼𝗻>""")
 
         ip, port, dur = args
         if not is_valid_ip(ip): raise ValueError("Invalid IP.")
         if not is_valid_port(port): raise ValueError("Invalid port.")
         if not is_valid_duration(dur): raise ValueError("Invalid duration.")
-        if int(dur) > 240: raise ValueError("Max duration is 240s.")
+        if int(dur) > 240: raise ValueError("⛔Max duration is 240s please reduce it to perform attack.")
 
         if user_id not in EXEMPTED_USERS:
             user_attacks[user_id] += 1
