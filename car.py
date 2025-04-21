@@ -113,9 +113,9 @@ def bgmi_command(message):
     try:
         args = message.text.split()[1:]
         if len(args) != 3:
-            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ \n\n
+            raise ValueError("raise ValueError("""┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ 
 
- ⚙ 𝙋𝙡𝙚𝙖𝙨𝙚 𝙪𝙨𝙚 𝙩𝙝𝙚 𝙁𝙤𝙧𝙢𝙖𝙩: /bgmi <ip> <port> <duration>")
+⚙ 𝙋𝙡𝙚𝙖𝙨𝙚 𝙪𝙨𝙚 𝙩𝙝𝙚 𝙁𝙤𝙧𝙢𝙖𝙩: /bgmi <ip> <port> <duration>""")
 
         ip, port, dur = args
         if not is_valid_ip(ip): raise ValueError("❌ 𝙄𝙣𝙫𝙖𝙡𝙞𝙙 𝙄𝙋.")
