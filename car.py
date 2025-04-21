@@ -28,7 +28,7 @@ from datetime import datetime, timedelta, timezone
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Telegram bot token and channel ID
-TOKEN = '7848878988:AAH80Xh92KSgTuUEQOd1OUwLqf3U7aNmNiE'
+TOKEN = '7848878988:AAEyreEyvBu2Gjf1E_I2Or_IZpJbrZnJpM8'
 CHANNEL_ID = '-1002678249799'
 bot = telebot.TeleBot(TOKEN)
 
